@@ -1,5 +1,6 @@
-package com.educacao.api.models;
+package com.educacao.api.domain.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
@@ -19,8 +20,10 @@ import lombok.Setter;
 @Table(name = "tb_student")
 @Getter
 @Setter
-public class Student {
+public class Student implements Serializable {
 	
+	private static final long serialVersionUID = 7778222720729799766L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

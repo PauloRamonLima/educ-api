@@ -1,4 +1,6 @@
-package com.educacao.api.models;
+package com.educacao.api.domain.models;
+
+import java.io.Serializable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,20 +14,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_alternative")
+@Table(name = "tb_student_question")
 @Getter
 @Setter
-public class Alternative {
+public class StudentQuestion implements Serializable {
 	
+	private static final long serialVersionUID = 3897574999928578854L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String description;
-	
-	private Boolean correct;
-	
-    @ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_question", referencedColumnName = "id", nullable = false)
 	private Question question;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_alternative_chosen", referencedColumnName = "id", nullable = false)
+	private Alternative alternativeChosen;
+	
+	private Boolean correct;
 }

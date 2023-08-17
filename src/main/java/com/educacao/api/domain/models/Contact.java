@@ -1,4 +1,6 @@
-package com.educacao.api.models;
+package com.educacao.api.domain.models;
+
+import java.io.Serializable;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,8 +14,10 @@ import lombok.Setter;
 @Table(name = "tb_contact")
 @Getter
 @Setter
-public class Contact {
+public class Contact implements Serializable {
 	
+	private static final long serialVersionUID = 6819387869732770356L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

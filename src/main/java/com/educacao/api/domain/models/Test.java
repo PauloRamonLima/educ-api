@@ -1,5 +1,6 @@
-package com.educacao.api.models;
+package com.educacao.api.domain.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -19,11 +20,15 @@ import lombok.Setter;
 @Table(name = "tb_test")
 @Getter
 @Setter
-public class Test {
+public class Test implements Serializable {
 	
+	private static final long serialVersionUID = 4649117469688897202L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	private String description;
 	
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL)
 	private List<Question> listQuestion;

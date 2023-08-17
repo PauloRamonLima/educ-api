@@ -1,5 +1,6 @@
-package com.educacao.api.models;
+package com.educacao.api.domain.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,8 +20,10 @@ import lombok.Setter;
 @Table(name = "tb_teacher")
 @Getter
 @Setter
-public class Teacher {
+public class Teacher implements Serializable {
 	
+	private static final long serialVersionUID = -4667804485243966243L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -36,4 +39,8 @@ public class Teacher {
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tb_teacher_class", joinColumns = {@JoinColumn(name = "id_teacher", referencedColumnName = "id")}, inverseJoinColumns = { @JoinColumn(name = "id_class", referencedColumnName = "id")})
 	private List<Class> listClass;
+	
+	public Teacher(Long id) {
+		this.id = id;
+	}
 }
