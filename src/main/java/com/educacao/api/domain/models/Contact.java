@@ -27,4 +27,5 @@ public class Contact implements Serializable {
 	private String phone;
 	
 	private String email;
+
 }

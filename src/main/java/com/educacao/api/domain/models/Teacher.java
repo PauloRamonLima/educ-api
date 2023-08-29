@@ -13,13 +13,17 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "tb_teacher")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Teacher implements Serializable {
 	
 	private static final long serialVersionUID = -4667804485243966243L;
@@ -35,6 +39,8 @@ public class Teacher implements Serializable {
 	private String phoneNumber;
 	
 	private LocalDate bornDate;
+	
+	private String email;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tb_teacher_class", joinColumns = {@JoinColumn(name = "id_teacher", referencedColumnName = "id")}, inverseJoinColumns = { @JoinColumn(name = "id_class", referencedColumnName = "id")})

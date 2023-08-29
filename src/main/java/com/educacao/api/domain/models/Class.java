@@ -37,11 +37,13 @@ public class Class implements Serializable {
 	
 	private String shift;
 	
+	private Integer numberVacancies; 
+	
 	@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tb_class_subject", joinColumns = {@JoinColumn(name = "id_class", referencedColumnName = "id")}, inverseJoinColumns = { @JoinColumn(name = "id_subject", referencedColumnName = "id")})
 	private List<Subject> listSubject;
 	
-	@OneToMany(mappedBy = "studentClass")
+	@OneToMany(mappedBy = "studentClass", cascade = CascadeType.ALL)
 	private List<Student> listStudent;
 
 	public Class(Long id) {

@@ -16,6 +16,7 @@ public class TeacherSaveInput implements Serializable {
 	
 	private static final long serialVersionUID = 8022176019634681280L;
 	
+	private Long id;
 	private String name;
 	private String cpf;
 	private String phoneNumber;

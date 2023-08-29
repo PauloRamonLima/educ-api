@@ -12,17 +12,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentListOutput implements Serializable {
+public class TeacherListOutput implements Serializable {
 	
-	private static final long serialVersionUID = 2016579870107608260L;
-	
+	private static final long serialVersionUID = 7417496345340096330L;
+
 	private Long id;
-	private String registration;
 	private String name;
+	private String cpf;
+	private String phoneNumber;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate bornDate;
-	private String phoneNumber;
-	private String studentClassName;
-	private String studentClassShift;
-	private ContactListOutput contact;
 }

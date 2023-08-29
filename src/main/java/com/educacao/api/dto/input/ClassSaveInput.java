@@ -13,4 +13,5 @@ public class ClassSaveInput implements Serializable {
 	
 	private String name;
 	private String shift;
+	private Integer numberVacancies;
 }

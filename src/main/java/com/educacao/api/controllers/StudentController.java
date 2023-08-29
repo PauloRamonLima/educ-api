@@ -2,6 +2,7 @@ package com.educacao.api.controllers;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,9 +38,17 @@ public class StudentController {
 	@GetMapping
 	public ResponseEntity<Page<StudentListOutput>> list(
 			@RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size){
-		Page<StudentListOutput> pageStudent = studentService.pageStudent(page, size);
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "") String name,
+            @RequestParam(defaultValue = "") String registration){
+		Page<StudentListOutput> pageStudent = studentService.pageStudent(page, size, name, registration);
 		return ResponseEntity.ok(pageStudent);
+	}
+	
+	@DeleteMapping
+	public ResponseEntity<?> delete(@RequestParam Long id){
+		studentService.delete(id);
+		return ResponseEntity.ok().build();
 	}
 	
 }
