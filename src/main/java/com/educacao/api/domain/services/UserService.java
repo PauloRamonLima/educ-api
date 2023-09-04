@@ -15,13 +15,7 @@ public class UserService {
 	
 	private UserRepository userRepository;
 	
-	public void saveNewUser(String login, UserType userType) throws UserAlreadyRegistredException {
-		validateSaveUser(login);
-		User user = new User();
-		user.setLogin(login);
-		user.setUserType(userType);
-		userRepository.save(user);
-	}
+	
 	
 	private void validateSaveUser(String login) throws UserAlreadyRegistredException {
 		User user = userRepository.findByLogin(login);

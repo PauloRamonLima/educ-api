@@ -12,8 +12,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.educacao.api.domain.exception.ClassWithoutVacanciesException;
 import com.educacao.api.domain.exception.UserAlreadyRegistredException;
 import com.educacao.api.domain.models.Student;
+import com.educacao.api.domain.repositories.ClassRepository;
 import com.educacao.api.domain.repositories.StudentRepository;
 import com.educacao.api.dto.input.StudentSaveInput;
 import com.educacao.api.dto.output.StudentListOutput;
@@ -26,14 +28,16 @@ import lombok.AllArgsConstructor;
 public class StudentService {
 	
 	private StudentRepository studentRepository;
+	private ClassRepository classRepository;
 	private ModelMapper modelMapper;
 	
 	@Transactional
-	public StudentSaveOutput save(StudentSaveInput studentSaveInput) throws UserAlreadyRegistredException {
+	public StudentSaveOutput save(StudentSaveInput studentSaveInput) throws UserAlreadyRegistredException, ClassWithoutVacanciesException {
 		Student student = modelMapper.map(studentSaveInput, Student.class);
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate bornDate = LocalDate.parse(studentSaveInput.getBornDate().substring(0, 10), formatter);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate bornDate = LocalDate.parse(studentSaveInput.getBornDate(), formatter);
 		student.setBornDate(bornDate);
+		removeVacacioneClass(student.getStudentClass());
 		student = studentRepository.save(student);
 		student.setRegistration(generateRegistrationStudent(student.getId()));
 		StudentSaveOutput studentSaveOutput = modelMapper.map(student, StudentSaveOutput.class);
@@ -62,6 +66,16 @@ public class StudentService {
 		String formattedYear = String.format("%04d", currentYear);
 		String formattedNumber = String.format("%04d", id);
 		return formattedYear + formattedNumber;
+	}
+	
+	private void removeVacacioneClass(com.educacao.api.domain.models.Class classStudent) throws ClassWithoutVacanciesException {
+		classStudent = classRepository.findById(classStudent.getId()).get();
+		if(classStudent.getNumberVacancies() > 0) {
+			classStudent.setNumberVacancies(classStudent.getNumberVacancies() - 1);
+			classRepository.save(classStudent);
+		}else {
+			throw new ClassWithoutVacanciesException("Class " + classStudent.getName() + " sem vagas");
+		}
 	}
 	
 }

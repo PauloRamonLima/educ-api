@@ -9,13 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClassListOutput implements Serializable {
+public class ClassStudentsListOutput implements Serializable {
 	
-	private static final long serialVersionUID = -3374967383856834776L;
+	private static final long serialVersionUID = 5388853638979849492L;
 	
-	private Long id;
 	private String name;
-	private String shift;
-	private Integer numberVacancies;
+	private String registration;
 
 }
