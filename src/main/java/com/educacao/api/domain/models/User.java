@@ -2,11 +2,7 @@ package com.educacao.api.domain.models;
 
 import java.io.Serializable;
 
-import com.educacao.api.domain.models.enums.UserType;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -30,6 +26,7 @@ public class User implements Serializable {
 	
 	private String password;
 	
-	@Enumerated(EnumType.STRING)
-	private UserType userType;
+	private String name;
+	
+	private String email;
 }

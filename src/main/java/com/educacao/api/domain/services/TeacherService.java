@@ -23,12 +23,10 @@ import lombok.AllArgsConstructor;
 public class TeacherService {
 	
 	private TeacherRepository teacherRepository;
-	private UserService userService;
 	private ModelMapper modelMapper;	
 	
 	@Transactional
 	public TeacherSaveOutput save(TeacherSaveInput teacherSaveInput) throws UserAlreadyRegistredException{
-		saveUserStudent(teacherSaveInput.getCpf());
 		Teacher teacher = modelMapper.map(teacherSaveInput, Teacher.class);
 		teacherRepository.save(teacher);
 		return modelMapper.map(teacher, TeacherSaveOutput.class);
@@ -45,9 +43,5 @@ public class TeacherService {
 		else
 			pageTeacher = teacherRepository.findAll(pageable);
 		return pageTeacher.map(teacher -> modelMapper.map(teacher, TeacherListOutput.class));
-	}
-	
-	private void saveUserStudent(String login) throws UserAlreadyRegistredException{
-		userService.saveNewUser(login, UserType.TEACHER);
 	}
 }
