@@ -8,5 +8,5 @@ import com.educacao.api.domain.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	
-	User findByLogin(String login);
+	User findByEmail(String email);
 }
